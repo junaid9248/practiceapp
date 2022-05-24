@@ -1,0 +1,23 @@
+body {
+    background-color: aliceblue;
+    color: white;
+    padding: 10px;
+    font-family: Arial;
+    /* text-align: center; */
+}
+
+.task {
+    display: flex;
+    gap: 170px;
+}
+
+.second {
+    display: flex;
+    /* justify-content: center; */
+    width: 15vw;
+    height: 80vh;
+}
+
+.other {
+    height: 90vh;
+}
