@@ -19,5 +19,39 @@ body {
 }
 
 .other {
-    height: 90vh;
+    height: 87.35vh;
 }
+
+ul.secondbar {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin: 0px;
+    justify-content: start;
+    padding: 0px;
+    margin: 5px 0px;
+    border: 1px solid black;
+}
+
+ul.secondbar li a {
+    text-decoration: none;
+    justify-content: center;
+    margin: 0px 5px;
+    padding: 00px 5px;
+    color: black;
+}
+
+.datasource-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    margin: 0px;
+    padding: 2px;
+    min-width: fit-content;
+}
+
+
+/* ul.bottom-bar {
+    display: flex;
+    flex-direction: row;
+} */
