@@ -25,15 +25,13 @@ function List_input() {
         values.setInput('')
     };
 
-    const[Input2, setInput2]=useState('');
-    console.log(Input2);
-
+ 
     
 
     
   return (
     <div className='data_return'> 
-          <form onSubmit={submitHandler}><input type="text" placeholder="Enter your task..."  name='input_text' onChange={e => values.setInput(e.target.value)}/> 
+          <form onSubmit={submitHandler}><input type={"text"} placeholder="Enter your task..."  name='input_text' onChange={e => values.setInput(e.target.value)}/> 
         <button className="submit_task" style={{color: 'black'}} onClick={submitHandler}>+</button></form>
        <h1>Let's plan the day!</h1>
 

@@ -10,7 +10,7 @@ import List_display from './sheet3';
 import Element from "./Element";
 import { Sheet2provider } from './Context';
 
-import './App.css';
+import './styling/App.css';
 
 
 function App() {
