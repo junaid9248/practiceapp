@@ -12,11 +12,12 @@ function Home() {
 
      const changeHandler = (a) =>{
 
-        values.setFile(a.target.files[0]);
+    values.setFile((prev)=>{return prev+a.target.files[0]});
         console.log(values.File);
+        console.log(a.target.files[0])
 
         //Function to take read the contents of csv file
-        if (values.File){
+   
             reader.onload= function (e){
                 const CsvOutput = e.target.result;
 
@@ -27,7 +28,7 @@ function Home() {
 
             reader.readAsText(values.File);
             
-        }
+        
 
         navigate('/file')
         

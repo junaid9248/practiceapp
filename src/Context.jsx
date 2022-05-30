@@ -10,7 +10,7 @@ export function Sheet2provider({children}){
     //Function to change the state of input
 
     //Function to take the file
-    const [File, setFile]= useState();
+    const [File, setFile]= useState("");
     
     //Function to convert the csv file into an array 
     const [Array, setArray] = useState([]);

@@ -26,6 +26,7 @@ function Sheets() {
     // newObj["globaldata"]= values2.sheet2;
 
     let string=JSON.stringify(values.File);
+    console.log(values.Array)
 
     //Initialize the blob that store the converted data
     var blob=new Blob([string],{type:"application/json"});
