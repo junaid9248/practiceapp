@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import {useNavigate} from 'react-router-dom';
 import '../src/homepage.css'
 import Sheet2Context from './Context';
-import Papa from "papaparse"
+
 
 function Home() {
     const navigate=useNavigate();
@@ -20,11 +20,7 @@ function Home() {
             reader.onload= function (e){
                 const CsvOutput = e.target.result;
 
-                Papa.parse(values.File[0], {
-                    complete : function(results){
-                        console.log("Done", results.data)
-                    }
-                })
+               
 
                 values.csvtoArray(CsvOutput);
             };

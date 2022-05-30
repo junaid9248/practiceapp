@@ -12,8 +12,8 @@ function Element() {
       <table style={{color:'black'}}>
         <thead>
         <tr key={"header"}>
-            {values1.headerKeys.map((key) => (
-              <th>{key}</th>
+            {values1.headerKeys.map((key, i) => (
+              <th key={i}>{key}</th>
             ))}
           </tr>
         </thead>

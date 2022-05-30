@@ -5,26 +5,31 @@ import './styling/App.css'
 import '../node_modules/bootstrap/js/dist/dropdown'
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import { useParams } from 'react-router-dom'
-import { saveAs } from "file-saver";
-import { type } from '@testing-library/user-event/dist/type'
+import { saveAs} from 'file-saver';
+
 
 function Sheets() {
 
-  const values2=useContext(Sheet2Context);
+  const values=useContext(Sheet2Context);
+  const sheetParam= useParams().file;
+
 
    const downloadFile= ()=>{
-    fetch('http://localhost:3000/file')
-    .then(response => {
-      response.blob().then(blob => {
-        let url = window.URL.createObjectURL(blob);
-        let a = document.createElement('a');
-        a.href = url;
-        a.download = 'file.Owbx';
-        a.click();
-      });
-      // window.location.href = response.url;
-  });
+    // var newObj = new Object()
+   
 
+    // var allData=Object.entries(values2.realData);
+
+    // //Now we have to assign the object the various attributes and their values extracted
+    // newObj["sheetparam"]= sheetParam;
+    // newObj["data"]=allData; 
+    // newObj["globaldata"]= values2.sheet2;
+
+    let string=JSON.stringify(values.File);
+
+    //Initialize the blob that store the converted data
+    var blob=new Blob([string],{type:"application/json"});
+    saveAs(blob, "file.Owbx"); 
    }
    
    
