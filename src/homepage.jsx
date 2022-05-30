@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import {useNavigate} from 'react-router-dom';
 import '../src/homepage.css'
 import Sheet2Context from './Context';
+import Papa from "papaparse"
 
 function Home() {
     const navigate=useNavigate();
@@ -9,26 +10,7 @@ function Home() {
     const values = useContext(Sheet2Context);
      let reader= new FileReader();
 
-
-        // const csvtoArray = string =>{
-        // const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
-        // const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
-
-        // const array = csvRows.map(i => {
-        //     const values = i.split(",");
-        //     const obj = csvHeader.reduce((object, header, index) => {
-        //         object[header] = values[index];
-        //         return object;
-        //       }, {});
-        //       return obj;
-        //     });
-        //     setArray(array);
-        // };
-
-        // const headerKeys = Object.keys(Object.assign({}, ...array));
-     
-
-    const changeHandler = (a) =>{
+     const changeHandler = (a) =>{
 
         values.setFile(a.target.files[0]);
         console.log(values.File);
@@ -37,6 +19,13 @@ function Home() {
         if (values.File){
             reader.onload= function (e){
                 const CsvOutput = e.target.result;
+
+                Papa.parse(values.File[0], {
+                    complete : function(results){
+                        console.log("Done", results.data)
+                    }
+                })
+
                 values.csvtoArray(CsvOutput);
             };
 

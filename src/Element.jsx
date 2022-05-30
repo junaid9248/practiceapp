@@ -21,8 +21,8 @@ function Element() {
         <tbody>
         {values1.Array.map((item) => (
             <tr key={item.id}>
-              {Object.values(item).map((val) => (
-                <td>{val}</td>
+              {Object.values(item).map((val, key) => (
+                <td key={key}>{val}</td>
               ))}
             </tr>
           ))}

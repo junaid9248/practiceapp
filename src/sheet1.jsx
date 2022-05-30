@@ -1,20 +1,50 @@
 import React from 'react'
+import { useContext } from 'react'
+import Sheet2Context from './Context'
 import './styling/App.css'
+import '../node_modules/bootstrap/js/dist/dropdown'
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+import { useParams } from 'react-router-dom'
+import { saveAs } from "file-saver";
+import { type } from '@testing-library/user-event/dist/type'
 
 function Sheets() {
+
+  const values2=useContext(Sheet2Context);
+
+   const downloadFile= ()=>{
+    fetch('http://localhost:3000/file')
+    .then(response => {
+      response.blob().then(blob => {
+        let url = window.URL.createObjectURL(blob);
+        let a = document.createElement('a');
+        a.href = url;
+        a.download = 'file.Owbx';
+        a.click();
+      });
+      // window.location.href = response.url;
+  });
+
+   }
+   
+   
   return (
-<div>
+  <div>
         <ul className="nav nav-pills nav-fill" >
     <li className="nav">
-   <button type="button" className="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-    File
-  </button>
+      <div className='dropdown'>
+      <button type="button" id="Filebttn" className="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      File
+    </button>
+    <ul className="dropdown-menu" aria-labelledby="Filebttn">
+      <li><a href="#" className='dropdown-item' onClick={downloadFile} >Save</a></li>
+    </ul>
+    </div>
   </li>
   <li className="nav-item">
-  <button type="button" className="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+  <button type="button" className="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
     Data
-    </button>
+  </button>
   </li>
   <li className="nav-item">
   <button type="button" className="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">

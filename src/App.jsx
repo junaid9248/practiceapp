@@ -22,10 +22,12 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/sheet1'element={<Sheets />} />
-          <Route path='/sheet2' element={<List_input />}/>
-          <Route path='/sheet3' element={<List_display />} />
           <Route path='/file' element={<Element />}/>
+          <Route path='/sheet'element={<Sheets />} />
+          
+          <Route path='/to-do-input' element={<List_input />}/>
+          <Route path='/to-do-tasks' element={<List_display />} />
+          
           
 
           <Route path='*' element={<Error_route />}/>
