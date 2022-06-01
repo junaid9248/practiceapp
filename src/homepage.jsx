@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import {useNavigate} from 'react-router-dom';
 import '../src/homepage.css'
 import Sheet2Context from './Context';
@@ -6,40 +6,43 @@ import Sheet2Context from './Context';
 
 function Home() {
     const navigate=useNavigate();
- 
     const values = useContext(Sheet2Context);
-     let reader= new FileReader();
+    
+    let reader= new FileReader();
 
-     const changeHandler = (a) =>{
+    const changeHandler = (a) =>{
 
-    values.setFile((prev)=>{return prev+a.target.files[0]});
-        console.log(values.File);
-        console.log(a.target.files[0])
-
+        values.FileRef.current=a.target.files[0]
+        console.log(values.FileRef.current)
+         
+        //Setting values of FileRef
+        // values.FileRef=a.target.files[0];
+        // console.log(values.FileRef)
+ 
         //Function to take read the contents of csv file
    
             reader.onload= function (e){
                 const CsvOutput = e.target.result;
 
-               
-
+                //Present in context page
                 values.csvtoArray(CsvOutput);
             };
 
-            reader.readAsText(values.File);
+            reader.readAsText(values.FileRef.current);
+            console.log(values.FileRef.current)
             
-        
-
-        navigate('/file')
+        navigate('/sheet')
         
        };
 
         return(
         <div>
-            <div>
-                <h1 className='input-head' style={{color:'black'}}>Drop or add a file</h1>
+            <div className='input-box'>
                 
-                    <input name="file_input" type="file" accept={".csv"}  placeholder='...'  onChange={changeHandler}  />
+                    
+                    <label htmlFor="file_input" > Drop or add a file </label>
+                    <input id="file_input" type="file"  accept={".csv"}  placeholder='...'  onChange={changeHandler}  />
+                    
                 
             </div>
             

@@ -1,32 +1,24 @@
 import React from 'react'
+import '../node_modules/bootstrap/js/dist/dropdown'
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import { useContext } from 'react'
 import Sheet2Context from './Context'
 import './styling/App.css'
-import '../node_modules/bootstrap/js/dist/dropdown'
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
-import { useParams } from 'react-router-dom'
+import Home from './homepage'
 import { saveAs} from 'file-saver';
 
 
 function Sheets() {
 
   const values=useContext(Sheet2Context);
-  const sheetParam= useParams().file;
+
 
 
    const downloadFile= ()=>{
-    // var newObj = new Object()
-   
-
-    // var allData=Object.entries(values2.realData);
-
-    // //Now we have to assign the object the various attributes and their values extracted
-    // newObj["sheetparam"]= sheetParam;
-    // newObj["data"]=allData; 
-    // newObj["globaldata"]= values2.sheet2;
-
-    let string=JSON.stringify(values.File);
+    
+    let string=JSON.stringify(values.Array);
     console.log(values.Array)
+    console.log(typeof(values.Array))
 
     //Initialize the blob that store the converted data
     var blob=new Blob([string],{type:"application/json"});
@@ -126,10 +118,11 @@ function Sheets() {
     </div>
 
     <div className='datasource-container'>
-        <div className='datasource-tab'> Datasource </div>
+      
         <div className='sheets-tab'>
+          <button> Datasource </button>
+            <button><a href="">Sheet-1</a></button>
             <button><a href="">Sheet-2</a></button>
-            <button><a href="">Sheet-3</a></button>
         </div>
         <div className='add-button'>
             <button>+</button>

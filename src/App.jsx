@@ -9,6 +9,7 @@ import List_input from './sheet2';
 import List_display from './sheet3';
 import Element from "./Element";
 import { Sheet2provider } from './Context';
+import Testing from "./testingpage";
 
 import './styling/App.css';
 
@@ -22,11 +23,12 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/file' element={<Element />}/>
+          <Route path='/sheet/datasource' element={<Element />}/>
           <Route path='/sheet'element={<Sheets />} />
           
           <Route path='/to-do-input' element={<List_input />}/>
           <Route path='/to-do-tasks' element={<List_display />} />
+          <Route path='/testing' element={<Testing />} />
           
           
 
