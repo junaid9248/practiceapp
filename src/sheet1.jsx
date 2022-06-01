@@ -2,6 +2,7 @@ import React from 'react'
 import '../node_modules/bootstrap/js/dist/dropdown'
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import { useContext } from 'react'
+import {useNavigate} from 'react-router-dom';
 import Sheet2Context from './Context'
 import './styling/App.css'
 import Home from './homepage'
@@ -11,7 +12,10 @@ import { saveAs} from 'file-saver';
 function Sheets() {
 
   const values=useContext(Sheet2Context);
+  const navigate=new useNavigate();
 
+  let Datafield_valueobj=Object.values(values.TableHeader.current);
+  
 
 
    const downloadFile= ()=>{
@@ -76,7 +80,16 @@ function Sheets() {
   </thead>
   <tbody style={{height:'80vh'}}>
     <tr>
-     <td></td>
+     <td className="datafield-column ">
+      {console.log(values.TableHeader.current)}
+      
+      {
+        Datafield_valueobj.map((val,key)=> 
+        (<td className="datafield-column" key={key}> {val} </td>)
+        )
+
+      }
+     </td>
      <td></td>
      </tr>
     </tbody>
@@ -120,8 +133,12 @@ function Sheets() {
     <div className='datasource-container'>
       
         <div className='sheets-tab'>
-          <button> Datasource </button>
-            <button><a href="">Sheet-1</a></button>
+          <button onClick={()=>{
+            navigate('/sheet/datasource');
+            console.log()
+        }}> Datasource </button>
+
+          <button><a href="">Sheet-1</a></button>
             <button><a href="">Sheet-2</a></button>
         </div>
         <div className='add-button'>
