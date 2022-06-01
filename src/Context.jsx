@@ -17,9 +17,17 @@ export function Sheet2provider({children}){
     
     //Function to convert the csv file into an array 
     const [Array, setArray] = useState([]);
+    const TableHeader= useRef('')
     
-    const csvtoArray = string =>{
+    const csvtoArray = (string) =>{
         const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
+
+        TableHeader.current= csvHeader;
+        TableHeader.current.split("/n")
+        // console.log(TableHeader.current)
+
+        
+        
         const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
 
         const array = csvRows.map(i => {
@@ -44,7 +52,7 @@ export function Sheet2provider({children}){
    
     
     return(
-    <Sheet2Context.Provider value={{FileRef ,csvtoArray, headerKeys, Array, setArray}}>
+    <Sheet2Context.Provider value={{FileRef ,csvtoArray, headerKeys,TableHeader, Array, setArray}}>
     {children}
     </Sheet2Context.Provider>
     );
