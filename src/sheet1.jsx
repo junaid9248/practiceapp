@@ -7,6 +7,7 @@ import Sheet2Context from './Context'
 import './styling/App.css'
 import Home from './homepage'
 import { saveAs} from 'file-saver';
+import { auto } from '@popperjs/core';
 
 
 function Sheets() {
@@ -85,7 +86,7 @@ function Sheets() {
       {
     
         Datafield_valueobj.map((val,key)=> 
-        (<tr className="datafield-column" key={key}> {val} </tr>)
+        (<tr className="datafield-column" key={key} > {val} </tr>)
         )
 
       }
