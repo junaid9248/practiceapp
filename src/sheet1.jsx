@@ -82,10 +82,10 @@ function Sheets() {
     <tr>
      <td className="datafield-column ">
       {console.log(values.TableHeader.current)}
-      
       {
+    
         Datafield_valueobj.map((val,key)=> 
-        (<td className="datafield-column" key={key}> {val} </td>)
+        (<tr className="datafield-column" key={key}> {val} </tr>)
         )
 
       }

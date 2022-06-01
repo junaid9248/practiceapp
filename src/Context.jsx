@@ -23,7 +23,7 @@ export function Sheet2provider({children}){
         const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
 
         TableHeader.current= csvHeader;
-        TableHeader.current.split("/n")
+        
         // console.log(TableHeader.current)
 
         
