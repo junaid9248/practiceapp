@@ -7,7 +7,6 @@ import Sheet2Context from './Context'
 import './styling/App.css'
 import Home from './homepage'
 import { saveAs} from 'file-saver';
-import { auto } from '@popperjs/core';
 
 
 function Sheets() {
@@ -74,7 +73,21 @@ function Sheets() {
   
     <tr>
       {/* <th scope="col">#</th> */}
-      <th scope="col"><button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Datafield</button></th>
+      <th scope="col">
+      <div className='dropdown'>
+        <button type="button" id='datafield-button' className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          Datafield
+        </button>
+        <ul className="dropdown-menu" aria-labelledby="datafield-button" >
+          <h6 className='dropdown-header'>Measurement 1</h6>
+            {/* <div class="dropdown-divider"></div> */}
+          {Datafield_valueobj.map((val,key)=> (<li> <a className="dropdown-items" key={key} style={{textDecoration: 'none', color:'black', padding: '0.5rem'}}> {val} </a> </li>))}
+          
+        </ul>
+      </div>
+      </th>
+      
+      
       <th scope="col"><button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Analytics</button></th>
       {/* <th scope="col">Handle</th> */}
     </tr>
@@ -82,14 +95,6 @@ function Sheets() {
   <tbody style={{height:'80vh'}}>
     <tr>
      <td className="datafield-column ">
-      {console.log(values.TableHeader.current)}
-      {
-    
-        Datafield_valueobj.map((val,key)=> 
-        (<tr className="datafield-column" key={key} > {val} </tr>)
-        )
-
-      }
      </td>
      <td></td>
      </tr>
@@ -136,7 +141,6 @@ function Sheets() {
         <div className='sheets-tab'>
           <button onClick={()=>{
             navigate('/sheet/datasource');
-            console.log()
         }}> Datasource </button>
 
           <button><a href="">Sheet-1</a></button>

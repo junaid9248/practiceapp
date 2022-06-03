@@ -2,6 +2,8 @@
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import React from 'react';
 import {BrowserRouter as Router, Routes, Route, Links as NavLink} from 'react-router-dom';
+import { DndProvider } from "react-dnd";
+
 import Sheets from './sheet1';
 import Home from './homepage';
 import Error_route from './error_route';
@@ -17,6 +19,7 @@ import './styling/App.css';
 function App() {
   
   return (
+
     <Sheet2provider>
     <div>
      
@@ -40,7 +43,7 @@ function App() {
       </Router>
       
 </div>  
-  </Sheet2provider> 
+  </Sheet2provider>
   );
 }
 
