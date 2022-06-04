@@ -6,10 +6,8 @@ import List_input from "./sheet2";
 
 
 export function Sheet2provider({children}){
-    // const[Input, setInput]= useState('');
+
    
-    //When the hook useState(initialState) is invoked, it returns an array.
-    // const [File, setFile]= useState();
     
     //Function to take the file
     const FileRef = useRef('');
@@ -17,15 +15,15 @@ export function Sheet2provider({children}){
     
     //Function to convert the csv file into an array 
     const [Array, setArray] = useState([]);
+    
+    //In this Ref we will store the headers of the various columns
     const TableHeader= useRef('')
     
     const csvtoArray = (string) =>{
         const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
 
+        //Assigning the extracted headers to the 'current' property
         TableHeader.current= csvHeader;
-        
-        // console.log(TableHeader.current)
-
         
         
         const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
@@ -44,9 +42,8 @@ export function Sheet2provider({children}){
       
         const headerKeys = Object.keys(Object.assign({}, ...Array));
     
-    
-    //Function to store the data in an array so we can retrive and display in sheet-3
-    // const[data, setData]= useState([]); 
+     //Storing the list of headers that are manipulated using stat
+  
     
     
    

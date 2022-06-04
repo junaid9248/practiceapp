@@ -13,11 +13,11 @@ function Home() {
     const changeHandler = (a) =>{
 
         values.FileRef.current=a.target.files[0]
-        console.log(values.FileRef.current)
+    
          
         //Setting values of FileRef
         // values.FileRef=a.target.files[0];
-        // console.log(values.FileRef)
+        console.log(values.FileRef)
  
         //Function to take read the contents of csv file
    

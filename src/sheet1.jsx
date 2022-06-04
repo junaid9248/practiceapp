@@ -1,36 +1,79 @@
 import React from 'react'
 import '../node_modules/bootstrap/js/dist/dropdown'
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
-import { useContext } from 'react'
+import { useContext,useState,useRef } from 'react'
 import {useNavigate} from 'react-router-dom';
 import Sheet2Context from './Context'
+// import DatafieldContext from './datafield_drag'
 import './styling/App.css'
 import Home from './homepage'
 import { saveAs} from 'file-saver';
+import DraggingListComponents from './datafield_drag';
 
 
 function Sheets() {
 
   const values=useContext(Sheet2Context);
+  // const values1=useContext(DatafieldContext);
+  
   const navigate=new useNavigate();
 
-  let Datafield_valueobj=Object.values(values.TableHeader.current);
+  // we will assign the values and keys of the extracted header to new objects
+
+
   
-
-
-   const downloadFile= ()=>{
+  const downloadFile= ()=>{
     
     let string=JSON.stringify(values.Array);
-    console.log(values.Array)
-    console.log(typeof(values.Array))
 
     //Initialize the blob that store the converted data
     var blob=new Blob([string],{type:"application/json"});
     saveAs(blob, "file.Owbx"); 
    }
+
    
    
-  return (
+   const [dragList, setDragList] = useState(Object.values(values.TableHeader.current))
+    console.log((dragList))
+    
+    const [dragging, setDragging]=useState(false)
+    //This ref will be used to store the value of the key of the component being dragged
+    const draggingItem = useRef();
+
+    const dragNode= useRef();
+
+    
+
+    const dragstartHandler=(d, param,param1)=>{
+      d.preventDefault();
+      console.log("drag has started, now dragging=>",param)
+
+      //setting the value of the item being dragged to that of the new ref draggingItem
+      draggingItem.current=param1; 
+      dragNode.current= d.target;
+      dragNode.current.addEventListener('dragend', dragendHandler)
+      
+      setDragging(true)
+      console.log("This is being dragged",param1)
+    }
+
+    const rowDimension= useRef();
+    const dragendHandler =(d)=>{
+    console.log("Drag has ended...")
+    dragNode.current.removeEventListener('dragend', dragendHandler)
+
+    //We will now set the title to a new ref rowDimension that will be displayed in the dimension(row) of graph
+    draggingItem.current=rowDimension.current;
+    
+    //Node wil
+    dragNode.current=null;
+    setDragging(false);
+    
+  }
+   console.log("This will be new value of the row-dimensions", draggingItem.current)
+
+   
+    return (
   <div>
         <ul className="nav nav-pills nav-fill" >
     <li className="nav">
@@ -74,14 +117,18 @@ function Sheets() {
     <tr>
       {/* <th scope="col">#</th> */}
       <th scope="col">
-      <div className='dropdown'>
+
+
+      <div className='dropdown drag-and-drop'>
         <button type="button" id='datafield-button' className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
           Datafield
         </button>
-        <ul className="dropdown-menu" aria-labelledby="datafield-button" >
+        <ul className="dropdown-menu dnd-group" aria-labelledby="datafield-button" >
           <h6 className='dropdown-header'>Measurement 1</h6>
             {/* <div class="dropdown-divider"></div> */}
-          {Datafield_valueobj.map((val,key)=> (<li> <a className="dropdown-items" key={key} style={{textDecoration: 'none', color:'black', padding: '0.5rem'}}> {val} </a> </li>))}
+          {/* <DraggingListComponents /> */}
+          {dragList.map((val,key) => (<li key={key} draggable onDragStart={(d)=>dragstartHandler(d,{key},{val})} className={ "dropdown-item dnd-items"}> {val} </li>))}
+         
           
         </ul>
       </div>
@@ -121,8 +168,25 @@ function Sheets() {
     <tr>
       
       <td >
-        row: <hr/> 
-        column:<hr /> 
+        <tr style={{display: 'flex', flexDirection:'row'}}> 
+          <h6 style={{margin:'0px', padding:'0.25rem'}}>row:</h6> 
+          <div className='row-div' style={{padding:'0px',marginLeft:'0.25rem'}}>
+                <table>
+                  <tr>
+                    <td></td>
+                  </tr>
+                </table>
+          </div>
+        
+        </tr>
+        <hr/> 
+        <tr style={{display: 'flex', flexDirection:'row'}}> 
+          <h6 style={{margin:'0px', padding:'0.25rem'}}>column:</h6>
+          <div className='column-div' style={{padding:'0px',marginLeft:'0.25rem'}}>
+                
+          </div>
+        </tr> 
+        <hr/> 
         <button type="button" className="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Submit
         </button> </td>
       

@@ -1,0 +1,12 @@
+.Dragging {
+    border-radius: 5px;
+    border: 0.25rem dotted greenyellow;
+}
+
+.dropdown-item {
+    text-decoration: none;
+    color: black;
+    padding: 0.2rem;
+    margin: 0rem 0.5rem;
+    display: inline-block;
+}

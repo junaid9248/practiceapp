@@ -3,7 +3,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import React from 'react';
 import {BrowserRouter as Router, Routes, Route, Links as NavLink} from 'react-router-dom';
 import { DndProvider } from "react-dnd";
-
+import { HTML5Backend } from "react-dnd-html5-backend";
 import Sheets from './sheet1';
 import Home from './homepage';
 import Error_route from './error_route';
@@ -11,6 +11,7 @@ import List_input from './sheet2';
 import List_display from './sheet3';
 import Element from "./Element";
 import { Sheet2provider } from './Context';
+// import {DatafieldContext} from './datafield_drag'
 import Testing from "./testingpage";
 
 import './styling/App.css';
@@ -20,6 +21,7 @@ function App() {
   
   return (
 
+    
     <Sheet2provider>
     <div>
      
@@ -44,6 +46,7 @@ function App() {
       
 </div>  
   </Sheet2provider>
+  
   );
 }
 

@@ -1,0 +1,31 @@
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 5rem;
+        background-color: black;
+        width: 45vw;
+        height: 70vh;
+        border-radius: 20px;
+    }
+    
+    .main-container>button {
+        overflow: hidden;
+        color: white;
+        border-radius: 25px;
+        box-shadow: 0 0 0 0;
+        transition: transform 0.3s ease, box-shadow0.3s ease;
+    }
+    
+    .main-container>button::after {
+        content: "";
+        width: 20vw;
+        height: 200px;
+    }
+    
+    .main-container>* {
+        margin: 01rem;
+        padding: 0.25rem;
+        color: white;
+    }
