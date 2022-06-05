@@ -35,17 +35,21 @@ function Sheets() {
    
    const [dragList, setDragList] = useState(Object.values(values.TableHeader.current))
     console.log((dragList))
+
     
     const [dragging, setDragging]=useState(false)
+    
     //This ref will be used to store the value of the key of the component being dragged
     const draggingItem = useRef();
 
     const dragNode= useRef();
 
+    const [rowList,setRowlist]=useState([])
     
 
     const dragstartHandler=(d, param,param1)=>{
-      d.preventDefault();
+     
+      setDragging(true);
       console.log("drag has started, now dragging=>",param)
 
       //setting the value of the item being dragged to that of the new ref draggingItem
@@ -53,27 +57,36 @@ function Sheets() {
       dragNode.current= d.target;
       dragNode.current.addEventListener('dragend', dragendHandler)
       
-      setDragging(true)
       console.log("This is being dragged",param1)
     }
 
-    const rowDimension= useRef();
-    const dragendHandler =(d)=>{
+
+    const dragenterHandler=(e,params)=>{
+        console.log('dragging now')
+    }
+    
+    const dragendHandler =()=>{
+    
     console.log("Drag has ended...")
-    dragNode.current.removeEventListener('dragend', dragendHandler)
-
-    //We will now set the title to a new ref rowDimension that will be displayed in the dimension(row) of graph
-    draggingItem.current=rowDimension.current;
-    
-    //Node wil
+    setDragging(false); 
+    dragNode.current.removeEventListener('dragend', dragendHandler);
+ 
     dragNode.current=null;
-    setDragging(false);
     
-  }
-   console.log("This will be new value of the row-dimensions", draggingItem.current)
+  const draggingItemobj= Object.values(draggingItem.current)
+    
+   const draggingitemarray=Object.keys(draggingItemobj).map(
+     index=> {
+       return draggingItemobj[index]
+     }
+   )
 
+   setRowlist(draggingitemarray)
+   console.log(setRowlist)
+  }
    
-    return (
+   
+    return ( 
   <div>
         <ul className="nav nav-pills nav-fill" >
     <li className="nav">
@@ -127,7 +140,8 @@ function Sheets() {
           <h6 className='dropdown-header'>Measurement 1</h6>
             {/* <div class="dropdown-divider"></div> */}
           {/* <DraggingListComponents /> */}
-          {dragList.map((val,key) => (<li key={key} draggable onDragStart={(d)=>dragstartHandler(d,{key},{val})} className={ "dropdown-item dnd-items"}> {val} </li>))}
+          {dragList.map((val,key) => (<li key={key} draggable onDragStart={(d)=>dragstartHandler(d,{key},{val})}
+          onDragEnter={dragenterHandler } className={ "dropdown-item dnd-items"}> {val} </li>))}
          
           
         </ul>
@@ -173,7 +187,10 @@ function Sheets() {
           <div className='row-div' style={{padding:'0px',marginLeft:'0.25rem'}}>
                 <table>
                   <tr>
-                    <td></td>
+                   {
+                     rowList.map((val,index)=>
+                     <td key={index}> {val} </td>)
+                   }
                   </tr>
                 </table>
           </div>
