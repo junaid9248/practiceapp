@@ -45,7 +45,9 @@ function Sheets() {
     const dragNode= useRef();
 
     const [rowList,setRowlist]=useState([])
+
     
+    const detect = useRef(false)
 
     const dragstartHandler=(d, param,param1)=>{
      
@@ -73,17 +75,47 @@ function Sheets() {
  
     dragNode.current=null;
     
-  const draggingItemobj= Object.values(draggingItem.current)
+   const draggingItemobj= Object.values(draggingItem.current)
     
    const draggingitemarray=Object.keys(draggingItemobj).map(
      index=> {
-       return draggingItemobj[index]
-     }
-   )
-
-   setRowlist(draggingitemarray)
-   console.log(setRowlist)
+    return draggingItemobj[index]
+   }
+    )
+ 
+  setRowlist(draggingitemarray)
+  console.log(rowList)
   }
+
+  
+  
+  const dropHandler =()=>{
+    if(detect.current=true)
+   {return rowList.map((val,index)=>
+    <td key={index}> {val} </td>)
+      
+   }
+  }
+    
+   
+  
+  
+  // const dropHandler=()=>{
+
+  //   if (draggingItem.current !== null)
+  //   {const draggingItemobj= Object.values(draggingItem.current)
+    
+  //  const draggingitemarray=Object.keys(draggingItemobj).map(
+  //    index=> {
+  //      return draggingItemobj[index]
+  //    }
+  //  )
+
+  //  setRowlist(draggingitemarray)
+  //  console.log(setRowlist)
+  //   }
+  
+  // }
    
    
     return ( 
@@ -139,7 +171,7 @@ function Sheets() {
         <ul className="dropdown-menu dnd-group" aria-labelledby="datafield-button" >
           <h6 className='dropdown-header'>Measurement 1</h6>
             {/* <div class="dropdown-divider"></div> */}
-          {/* <DraggingListComponents /> */}
+          
           {dragList.map((val,key) => (<li key={key} draggable onDragStart={(d)=>dragstartHandler(d,{key},{val})}
           onDragEnter={dragenterHandler } className={ "dropdown-item dnd-items"}> {val} </li>))}
          
@@ -186,11 +218,13 @@ function Sheets() {
           <h6 style={{margin:'0px', padding:'0.25rem'}}>row:</h6> 
           <div className='row-div' style={{padding:'0px',marginLeft:'0.25rem'}}>
                 <table>
-                  <tr>
-                   {
-                     rowList.map((val,index)=>
-                     <td key={index}> {val} </td>)
-                   }
+                <tr onDragOver={()=>{detect.current=true;}}
+                onDrop={dropHandler}>
+
+                 
+                  {/* {rowList.map((val,index)=>
+                  <td key={index}> {val} </td>)} */}
+
                   </tr>
                 </table>
           </div>
