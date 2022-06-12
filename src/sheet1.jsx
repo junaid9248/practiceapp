@@ -8,20 +8,14 @@ import Sheet2Context from './Context'
 import './styling/App.css'
 import Home from './homepage'
 import { saveAs} from 'file-saver';
-import DraggingListComponents from './datafield_drag';
+import {FiTrash} from 'react-icons/fi';
 
 
 function Sheets() {
 
-  const values=useContext(Sheet2Context);
-  // const values1=useContext(DatafieldContext);
-  
+  const values=useContext(Sheet2Context);  
   const navigate=new useNavigate();
 
-  // we will assign the values and keys of the extracted header to new objects
-
-
-  
   const downloadFile= ()=>{
     
     let string=JSON.stringify(values.Array);
@@ -32,93 +26,74 @@ function Sheets() {
    }
 
    
-   
+   //To set values of the datafield dropdown
    const [dragList, setDragList] = useState(Object.values(values.TableHeader.current))
-    console.log((dragList))
 
-    
     const [dragging, setDragging]=useState(false)
-    
-    //This ref will be used to store the value of the key of the component being dragged
     const draggingItem = useRef();
-
     const dragNode= useRef();
-
+    
     const [rowList,setRowlist]=useState([])
-
-    
-    const detect = useRef(false)
-
-    const dragstartHandler=(d, param,param1)=>{
-     
+    const [columnList, setcolumnList] = useState([])
+    const [active, setActive] = useState(false)
+    const [showButtonR, setshowButtonR]= useState(false)
+    const [showButtonC, setshowButtonC]= useState(false)
+    //Drag handlers
+    const dragstartHandler=(d, param,param1)=>
+    {
       setDragging(true);
-      console.log("drag has started, now dragging=>",param)
+      console.log("drag has started, now dragging=>",param,param1)
 
-      //setting the value of the item being dragged to that of the new ref draggingItem
-      draggingItem.current=param1; 
-      dragNode.current= d.target;
-      dragNode.current.addEventListener('dragend', dragendHandler)
+      draggingItem.current=param1;    
+
       
-      console.log("This is being dragged",param1)
-    }
-
-
-    const dragenterHandler=(e,params)=>{
-        console.log('dragging now')
     }
     
-    const dragendHandler =()=>{
-    
+
+  const dropHandler=()=>{
+    setshowButtonR(true)
     console.log("Drag has ended...")
     setDragging(false); 
-    dragNode.current.removeEventListener('dragend', dragendHandler);
- 
-    dragNode.current=null;
+    const draggingItemobj= Object.values(draggingItem.current)
     
-   const draggingItemobj= Object.values(draggingItem.current)
-    
-   const draggingitemarray=Object.keys(draggingItemobj).map(
-     index=> {
-    return draggingItemobj[index]
-   }
-    )
- 
-  setRowlist(draggingitemarray)
-  console.log(rowList)
-  }
-
-  
-  
-  const dropHandler =()=>{
-    if(detect.current=true)
-   {return rowList.map((val,index)=>
-    <td key={index}> {val} </td>)
+    const dragarray=Object.keys(draggingItemobj).map(
+    index=> {return draggingItemobj[index]})
       
-   }
+      setRowlist(dragarray)
+     
+    console.log(rowList)
+    
+  
+  }
+  const dropHandler1=()=>{
+    setshowButtonC(true)
+    console.log("Drag has ended...")
+    setDragging(false); 
+    const draggingItemobj= Object.values(draggingItem.current)
+    
+    const dragarray=Object.keys(draggingItemobj).map(
+    index=> {return draggingItemobj[index]})
+      
+    setcolumnList(dragarray)
+     
+    console.log(columnList)
+  }
+
+  const clearrowParameter=()=>{
+    var newlist=rowList;
+    newlist.splice(0,1);
+    setRowlist([...newlist])
+    setshowButtonR(false)
+  }
+  const clearcolumnParameter=()=>{
+    var newlist=columnList;
+    newlist.splice(0,1);
+    setcolumnList([...newlist]) 
+    setshowButtonC(false)
   }
     
    
-  
-  
-  // const dropHandler=()=>{
-
-  //   if (draggingItem.current !== null)
-  //   {const draggingItemobj= Object.values(draggingItem.current)
-    
-  //  const draggingitemarray=Object.keys(draggingItemobj).map(
-  //    index=> {
-  //      return draggingItemobj[index]
-  //    }
-  //  )
-
-  //  setRowlist(draggingitemarray)
-  //  console.log(setRowlist)
-  //   }
-  
-  // }
-   
-   
-    return ( 
+  return ( 
   <div>
         <ul className="nav nav-pills nav-fill" >
     <li className="nav">
@@ -169,11 +144,9 @@ function Sheets() {
           Datafield
         </button>
         <ul className="dropdown-menu dnd-group" aria-labelledby="datafield-button" >
-          <h6 className='dropdown-header'>Measurement 1</h6>
-            {/* <div class="dropdown-divider"></div> */}
-          
-          {dragList.map((val,key) => (<li key={key} draggable onDragStart={(d)=>dragstartHandler(d,{key},{val})}
-          onDragEnter={dragenterHandler } className={ "dropdown-item dnd-items"}> {val} </li>))}
+          <h6 className='dropdown-header'>Measurement 1</h6>          
+          {dragList.map((val,key) => (<li  key={key} draggable onDragStart={(d)=>dragstartHandler(d,{key},{val})}
+          className={ "dropdown-item dnd-items"}> {val} </li>))}
          
           
         </ul>
@@ -204,44 +177,53 @@ function Sheets() {
       <button type="button" class="btn btn-secondary btn-sm"><i>Pages</i></button></td>
       
     </tr>
-    
+     
  </tbody>
   </table>
 </div>
 
-  <table className='table table-bordered border-dark' style={{justifyContent:'right'}}  >
+  <table className='table table-bordered border-dark' style={{justifyContent:'right', border:'1px solid black'}}  >
   <tbody >
-    <tr>
-      
-      <td >
-        <tr style={{display: 'flex', flexDirection:'row'}}> 
-          <h6 style={{margin:'0px', padding:'0.25rem'}}>row:</h6> 
-          <div className='row-div' style={{padding:'0px',marginLeft:'0.25rem'}}>
+          <tr style={{display: 'flex', flexDirection:'row', border:'none', alignItems:'center' }}> 
+          <h6 style={{margin:'5px', padding:'2px'}}>row:</h6> 
+          <div style={{padding:'0px',marginLeft:'0.25rem'}}>
                 <table>
-                <tr onDragOver={()=>{detect.current=true;}}
-                onDrop={dropHandler}>
+                  <tr>
+              <div className='row-div'
+                onDragOver={(e)=>{e.preventDefault()}}
+                onDrop={()=> dropHandler()}>
+                {rowList[0]}
 
-                 
-                  {/* {rowList.map((val,index)=>
-                  <td key={index}> {val} </td>)} */}
+                { showButtonR ? <button className='delete-button row-button' onClick={()=>clearrowParameter()}>
+                  <FiTrash height='1rem'/>
+                </button> : null }
+              
+              </div>
+              {/* {rowlist===null ?' hide-button' : 'delete-button row-button' } */}
+              </tr>
+              </table>
+              </div>
 
-                  </tr>
-                </table>
-          </div>
-        
         </tr>
-        <hr/> 
-        <tr style={{display: 'flex', flexDirection:'row'}}> 
-          <h6 style={{margin:'0px', padding:'0.25rem'}}>column:</h6>
-          <div className='column-div' style={{padding:'0px',marginLeft:'0.25rem'}}>
-                
+        
+        <hr style={{margin:'20px 0px'}}/> 
+        
+        <tr style={{display: 'flex', flexDirection:'row', border:'none', alignItems:'center'}}> 
+          <h6 style={{margin:'5px', padding:'2px'}}>column:</h6>
+          <div className='column-div' 
+          onDragOver={(e)=>{e.preventDefault()}}
+          onDrop={()=> dropHandler1()}>
+                {columnList[0]}
+                { showButtonC ? <button className='delete-button row-button' onClick={()=>clearcolumnParameter()}>
+                  <FiTrash height='1rem'/>
+                </button> : null }         
           </div>
         </tr> 
-        <hr/> 
+        <hr style={{margin:'20px 0px'}}/> 
         <button type="button" className="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Submit
-        </button> </td>
+        </button> 
       
-    </tr>
+    
     {/* <tr>
        <td>
           
