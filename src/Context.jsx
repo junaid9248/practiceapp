@@ -44,10 +44,6 @@ export function Sheet2provider({children}){
     
      //Storing the list of headers that are manipulated using stat
   
-    
-    
-   
-    
     return(
     <Sheet2Context.Provider value={{FileRef ,csvtoArray, headerKeys,TableHeader, Array, setArray}}>
     {children}

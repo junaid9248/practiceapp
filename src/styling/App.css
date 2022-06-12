@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: aliceblue;
     color: white;
@@ -48,6 +52,50 @@ ul.secondbar li a {
     margin: 0px;
     padding: 2px;
     min-width: fit-content;
+}
+
+.hidden-button {
+    display: none;
+}
+
+.row-div {
+    min-width: 500px;
+    max-width: 500px;
+    min-height: 2rem;
+    max-height: fit-content;
+    padding: 2px;
+    margin: 5px 0px;
+    /* border: 1px solid black; */
+    border-radius: 10px
+}
+
+.hide-button {
+    display: none;
+}
+
+.delete-button {
+    height: fit-content;
+    margin: 0px 2px;
+    padding: 2px;
+    border: none;
+    background-color: aliceblue;
+}
+
+.delete-button:active {
+    height: fit-content;
+    border-radius: 10px;
+    background-color: red;
+}
+
+div.column-div {
+    min-width: 500px;
+    max-width: fit-content;
+    min-height: 2rem;
+    max-height: fit-content;
+    padding: 2px;
+    margin: 5px 0px;
+    /* border: 1px solid black; */
+    border-radius: 10px
 }
 
 

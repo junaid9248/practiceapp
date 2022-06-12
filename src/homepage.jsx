@@ -15,8 +15,6 @@ function Home() {
         values.FileRef.current=a.target.files[0]
     
          
-        //Setting values of FileRef
-        // values.FileRef=a.target.files[0];
         console.log(values.FileRef)
  
         //Function to take read the contents of csv file
